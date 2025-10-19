@@ -5,8 +5,6 @@ This project is a **batch streaming data pipeline** for processing railway ticke
 
 It is designed to clean and structure messy PNR data and build a **train availability history dataset** that can be used for querying and analysis.
 
----
-
 ## Features
 
 - **Data Ingestion:** Reads raw PNR and ticket data from CSV files.  
@@ -18,47 +16,36 @@ It is designed to clean and structure messy PNR data and build a **train availab
 - **Workflow Orchestration:** Uses **Airflow** to automate and schedule the pipeline.  
 - **Scalable Processing:** Uses **Spark** for distributed computation to handle large datasets efficiently.
 
-
----
-### Prerequisites
+## Prerequisites
 
 - Docker & Docker Compose  
 - Python 3.10+  
 - Apache Spark  
 - Apache Cassandra  
 
+## Usage
 
-### Usage
+- Place raw CSV files in the `Data_sets/` directory (these files are ignored by Git).  
+- Run the Airflow DAGs to process the data.  
+- Spark ETL scripts will clean and structure the data.  
+- The processed data will be stored in Cassandra for future queries.
 
-    Place raw CSV files in the Data_sets/ directory (ignored by Git).
+## Data Processing Workflow
 
-    Run the Airflow DAGs to process data.
+1. **Extract:**  
+   Read raw CSVs containing PNR and ticket information.
 
-    Spark ETL scripts will clean and structure the data.
+2. **Transform:**  
+   - Clean messy fields and normalize data.  
+   - Aggregate availability statistics per train per day.  
+   - Generate structured data for downstream analysis.
 
-    The processed data will be stored in Cassandra for future queries.
+3. **Load:**  
+   Save structured data into Cassandra tables for persistent storage.
 
-### Data Processing Workflow
+## Key Technologies
 
-    Extract: Read raw CSVs containing PNR and ticket information.
-
-    Transform:
-
-        Clean messy fields and normalize data.
-
-        Aggregate availability statistics per train per day.
-
-        Generate structured data for downstream analysis.
-
-    Load: Save structured data into Cassandra tables for persistent storage.
-
-### Key Technologies
-
-    Apache Spark: Distributed data processing for large datasets.
-
-    Apache Cassandra: NoSQL database for scalable storage.
-
-    Apache Airflow: Workflow orchestration and scheduling.
-
-    Docker: Containerization for reproducible environment.
-L
+- **Apache Spark**: Distributed data processing framework for handling large datasets efficiently.  
+- **Apache Cassandra**: Scalable NoSQL database for high-performance storage.  
+- **Apache Airflow**: Workflow orchestration and scheduling tool.  
+- **Docker**: Containerization platform to ensure a reproducible environment.
